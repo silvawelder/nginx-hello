@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-nginx-hello
+  labels:
+    app: nginx-hello
+    service: svc-nginx-hello
+spec:
+  ports:
+  - name: svc-access
+    port: 80
+    protocol: TCP
+    targetPort: 
+  selector:
+    app: nginx-hello
+  sessionAffinity: None
+  type: ClusterIP

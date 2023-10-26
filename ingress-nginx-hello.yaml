@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-nginx-hello
+  annotations:
+  # Para utilizacao de CA interna
+    cert-manager.io/cluster-issuer: ca-issuer-qq 
+    cert-manager.io/common-name: hello-dev-k8s.qq 
+spec:
+  rules:
+  - host: hello-dev-k8s.qq
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-nginx-hello
+            port:
+              number: 80
+  ingressClassName: nginx
