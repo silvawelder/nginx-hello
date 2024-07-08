@@ -3,12 +3,11 @@ kind: Ingress
 metadata:
   name: ingress-nginx-hello
   annotations:
-  # Para utilizacao de CA interna
-    cert-manager.io/cluster-issuer: ca-issuer-custom 
-    cert-manager.io/common-name: hello-dev-k8s.companydomain 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: nginx
   rules:
-  - host: hello-dev-k8s.companydomain 
+  - host: hello.env.companydomain.com.br
     http:
       paths:
       - path: /
@@ -18,4 +17,7 @@ spec:
             name: svc-nginx-hello
             port:
               number: 80
-  ingressClassName: nginx
+  tls:
+  - hosts:
+    - hello.env.companydomain.com.br
+    secretName: hello-env-k8s-tls
